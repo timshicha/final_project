@@ -4,14 +4,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn
 
+print("You may train on 10%, 25%, or 100% of training data.")
+train_size = input("Enter '10', '25', or '100': ")
+
+while(train_size not in ['10','25','100']):
+    train_size = input("Enter '10', '25', or '100': ")
+
 n = 20
 lr = 0.01
 momentum = 0.9
 epochs = 50
 
 # get the data
-train_data = pd.read_csv('training100.csv').to_numpy()
-test_data = pd.read_csv('test100.csv').to_numpy()
+train_data = pd.read_csv(f'src/data/training{train_size}.csv').to_numpy()
+test_data = pd.read_csv(f'src/data/test{train_size}.csv').to_numpy()
 train_len = len(train_data)
 test_len = len(test_data)
 

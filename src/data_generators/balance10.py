@@ -4,7 +4,7 @@ import pandas as pd
 
 # 'B' = 0
 # 'M' = 1
-data = pd.read_csv("data.csv").to_numpy()[:,1:]
+data = pd.read_csv("src/data/data.csv").to_numpy()[:,1:]
 
 for i in range(len(data)):
     if(data[i,0] == 'B'):
@@ -67,5 +67,5 @@ test_dataframe = pd.DataFrame(test_data)
 train_dataframe = pd.DataFrame(new_train_data)
 
 # store to csv
-train_dataframe.to_csv('training10.csv', index=False)
-test_dataframe.to_csv('test10.csv', index=False)
+train_dataframe.to_csv('src/data/training10.csv', index=False)
+test_dataframe.to_csv('src/data/test10.csv', index=False)
