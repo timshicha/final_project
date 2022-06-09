@@ -67,6 +67,6 @@ test_dataframe = pd.DataFrame(test_data)
 train_dataframe = pd.DataFrame(new_train_data)
 
 # store to csv
-test_dataframe.to_csv('test.csv', index=False)
-train_dataframe.to_csv('training.csv', index=False)
+test_dataframe.to_csv('test100.csv', index=False)
+train_dataframe.to_csv('training100.csv', index=False)
 
