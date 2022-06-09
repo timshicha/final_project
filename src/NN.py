@@ -13,7 +13,7 @@ while(train_size not in ['10','25','100']):
 n = 20
 lr = 0.01
 momentum = 0.9
-epochs = 50
+epochs = 100
 
 # get the data
 train_data = pd.read_csv(f'src/data/training{train_size}.csv').to_numpy()
@@ -147,6 +147,9 @@ for j in range(epochs):
 
     train_acc_data.append(get_train_accuracy())
     test_acc_data.append(get_test_accuracy())
+
+print("Final train accuracy:", train_acc_data[len(train_acc_data) - 1])
+print("Final test accuracy:", test_acc_data[len(test_acc_data) - 1])
 
 plt.figure(figsize= (10, 5))
 plt.title("Accuracy")
