@@ -4,12 +4,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn
 
+# give user options for training size
 print("You may train on 10%, 25%, or 100% of training data.")
 train_size = input("Enter '10', '25', or '100': ")
 
 while(train_size not in ['10','25','100']):
     train_size = input("Enter '10', '25', or '100': ")
 
+# number of hidden nodes, learning rate, momentum, number of epochs
 n = 20
 lr = 0.01
 momentum = 0.9
@@ -34,6 +36,7 @@ for i in range(test_len):
     test_labels[i] = test_data[i,0]
     test_data[i,0] = 1
 
+# last column is blank (the was csv was loaded)
 train_data = train_data[:,:31]
 test_data = test_data[:,:31]
 
@@ -63,40 +66,50 @@ h2o_bias_prev = np.zeros(2)
 # truth arrays
 truth = np.array([[1,0],[0,1]])
 
-
+# apply sigmoid
 def sigmoid(z):
     return 1 / (1 + np.exp(-z))
 
+# get the current train accuracy of the model
 def get_train_accuracy():
 
+    # propogate
     h_activation = sigmoid(np.dot(train_data, i2h.transpose()))
     o_activation = sigmoid(np.dot(h_activation, h2o.transpose()) + h2o_bias)
 
+    # compare outputs to correct
     output = o_activation.argmax(1)
     correct = np.sum(output == train_labels)
     return correct / train_len
 
+# get the current test accuracy of the model
 def get_test_accuracy():
 
+    # propogate
     h_activation = sigmoid(np.dot(test_data, i2h.transpose()))
     o_activation = sigmoid(np.dot(h_activation, h2o.transpose()) + h2o_bias)
 
+    # compare outputs to correct
     output = o_activation.argmax(1)
     correct = np.sum(output == test_labels)
     return correct / test_len
 
+# generate the confusion matrix for the test data
 def get_test_confusion():
     confusion = [[0,0],[0,0]]
 
+    # propogate
     h_activation = sigmoid(np.dot(test_data, i2h.transpose()))
     o_activation = sigmoid(np.dot(h_activation, h2o.transpose()) + h2o_bias)
 
+    # compare outputs to correct
     output = o_activation.argmax(1)
 
     for i in range(test_len):
         confusion[int(test_labels[i])][int(output[i])] += 1
     return confusion
 
+# train on a single image
 def train(i):
     global i2h, h2o, h2o_bias
     global i2h_prev, h2o_prev, h2o_bias_prev
@@ -141,6 +154,7 @@ test_acc_data = []
 train_acc_data.append(get_train_accuracy())
 test_acc_data.append(get_test_accuracy())
 
+# run the training
 for j in range(epochs):
     for i in range(len(train_data)):
         train(i)
@@ -151,6 +165,7 @@ for j in range(epochs):
 print("Final train accuracy:", train_acc_data[len(train_acc_data) - 1])
 print("Final test accuracy:", test_acc_data[len(test_acc_data) - 1])
 
+# generate plot
 plt.figure(figsize= (10, 5))
 plt.title("Accuracy")
 plt.xlabel("Epoch")
