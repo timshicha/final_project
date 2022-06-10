@@ -1,3 +1,7 @@
+""" The following code refered to equations and code snipet from
+    the text book "Machine Learning: An Algorithmic Perspective" of Stephen Marsland
+"""
+
 import time, warnings
 import numpy as np
 import cvxopt as cvxopt
@@ -6,6 +10,11 @@ from csv import reader
 import matplotlib.pyplot as plt
 
 def read_csv(file_name):
+    """ Read data from csv file
+            args:
+                file_name: the csv file name
+            return: numpy array of the data
+    """
     data = []
     with open(file_name, 'r') as obj:
         csv_obj = reader(obj)
@@ -20,8 +29,13 @@ def read_csv(file_name):
     return np.array(data) 
 
 def create_kernel(X, op, sigma, degree):
-    """ 
-        op: 2-Polynomial kernel; 3-Gaussian kernel
+    """ Create the matrix kernel
+            args:
+                X: the input matrix
+                op: 2-Polynomial kernel; 3-Gaussian kernel
+                sigma: sigma parameter for selected kernel
+                degre: degree parameter for polynomial kernel
+
     """
     N = X.shape[0]
     K = np.dot(X,X.T)
@@ -40,6 +54,10 @@ def classifier(X, Y, test_data, op, C, sigma, degree):
     """
         X: input data matrix
         Y: target matrix
+        test_data: test data matrix
+        op: 2-polynomial kernel; 3-Gaussian kernel
+        C: C parameter of the quadratic solver
+        sigma, degree: parameter for kernel
     """
     N = X.shape[0]
     K, xsquared = create_kernel(X, op, sigma, degree)
@@ -95,6 +113,10 @@ def classifier(X, Y, test_data, op, C, sigma, degree):
         return np.sign(y)
 
 def svm_training(file_names):
+    """ Read data set and classify data
+            args:
+                file_names: an array of data file names
+    """
     for file in file_names:
         print(f'**** Using data set: {file[0]} and {file[1]}')
         training = read_csv(file[0])
@@ -128,6 +150,10 @@ def svm_training(file_names):
         print(f'Accuracy: {((TP + TN)/(TP + TN + FP + FN))*100} %')
 
 def plot_accuracy(file_names):
+    """ Plot accuracies by gamma
+            args:
+                file_name: training and test data file names
+    """
     training = read_csv(file_names[0])
     test = read_csv(file_names[1])
     X = training[:,1:]
@@ -152,7 +178,7 @@ def plot_accuracy(file_names):
         
 def checked_int(num):
     """ Method to check if a string can be convert to an integer
-            argument:
+            args:
                 num: a string need to convert to integer
             return: a corresponding integer, or -1 of the string is invalid
     """
@@ -161,6 +187,7 @@ def checked_int(num):
     except ValueError:
         return -1
 
+""" Main Method """
 SIGMA = 53
 DEGREE = 3
 THRESHOLD =1e-6
