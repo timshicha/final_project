@@ -1,8 +1,12 @@
+# CS-445/545 ML Final Project
+# Neural Network for breast cancer detection
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn
+
+# the model is set up globally with functions to support the training and result generation
 
 # give user options for training size
 print("You may train on 10%, 25%, or 100% of training data.")

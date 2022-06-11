@@ -1,3 +1,5 @@
+# CS-445/545 ML Final Project
+# Neural Network for breast cancer detection
 
 import numpy as np
 import pandas as pd

@@ -1,4 +1,7 @@
-""" The following code refered to equations and code snipet from
+""" CS-445/545 ML Final Project
+    Neural Network for breast cancer detection
+    
+    The following code refered to equations and code snipet from
     the text book "Machine Learning: An Algorithmic Perspective" of Stephen Marsland
 """
 
